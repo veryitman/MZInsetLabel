@@ -1,2 +1,4 @@
 # MZInsetLabel
-The subclass of UILabel who can set insets.
+The subclass of UILabel who can be set insets.
+
+
