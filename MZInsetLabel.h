@@ -1,3 +1,5 @@
+#import <UIKit/UIKit>
+
 @interface MZInsetsLabel : UILabel
 
 @property (nonatomic) UIEdgeInsets insets;

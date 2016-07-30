@@ -1,3 +1,5 @@
+#import "MZInsetsLabel"
+
 @implementation MZInsetsLabel
 
 @synthesize insets = _insets;
