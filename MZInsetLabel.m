@@ -1,4 +1,4 @@
-#import "MZInsetsLabel"
+#import "MZInsetLabel"
 
 @implementation MZInsetsLabel
 
