@@ -1,6 +1,6 @@
-#import "MZInsetLabel"
+#import "MZInsetLabel.h"
 
-@implementation MZInsetsLabel
+@implementation MZInsetLabel
 
 @synthesize insets = _insets;
 

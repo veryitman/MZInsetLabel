@@ -1,8 +1,8 @@
-#import <UIKit/UIKit>
+#import <UIKit/UIKit.h>
 
 @interface MZInsetLabel : UILabel
 
-@property (nonatomic) UIEdgeInsets insets;
+@property (nonatomic, assign) UIEdgeInsets insets;
 
 @property (nonatomic, assign) CGFloat leftInsets;
 @property (nonatomic, assign) CGFloat rightInsets;
