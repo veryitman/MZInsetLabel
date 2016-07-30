@@ -1,3 +1,9 @@
+//
+//  MZInsetLabel.m
+//
+//  Created by mark.zhang on 7/26/16.
+//  Copyright © 2016 veryitman. All rights reserved.
+//
 #import "MZInsetLabel.h"
 
 @implementation MZInsetLabel
