@@ -5,6 +5,15 @@
 //  Copyright © 2016 veryitman. All rights reserved.
 //
 #import "MZInsetLabel.h"
+#import <objc/runtime.h>
+
+static const char *sAssociatedKey;
+
+@interface MZInsetLabel ()
+
+- (void)configGestureAction;
+
+@end
 
 @implementation MZInsetLabel
 
@@ -12,7 +21,7 @@
 
 - (instancetype)init
 {
-    UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 0, 0);
+    UIEdgeInsets insets = UIEdgeInsetsZero;
     
     return [self initWithInsets:insets];
 }
@@ -21,6 +30,8 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.insets = insets;
+        
+        [self configGestureAction];
     }
     
     return self;
@@ -30,6 +41,8 @@
 {
     if (self = [super init]) {
         self.insets = insets;
+        
+        [self configGestureAction];
     }
     
     return self;
@@ -41,11 +54,28 @@
     [super drawTextInRect:curRect];
 }
 
-- (void)setOnClickListener:(id)target selector:(SEL)callback
+- (void)configGestureAction
 {
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:target action:callback];
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doClickInsetLabelAction:)];
     self.userInteractionEnabled = YES;
     [self addGestureRecognizer:gesture];
+}
+
+- (void)doClickInsetLabelAction:(id)sender
+{
+    self.onClickActionBlock(sender);
+}
+
+#pragma mark Setter & Getter.
+
+- (void)setOnClickActionBlock:(OnClickActionBlock)onClickActionBlock
+{
+    objc_setAssociatedObject(self, sAssociatedKey, onClickActionBlock, OBJC_ASSOCIATION_COPY);
+}
+
+- (OnClickActionBlock)onClickActionBlock
+{
+    return objc_getAssociatedObject(self, sAssociatedKey);
 }
 
 - (UIEdgeInsets)insets

@@ -7,6 +7,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^OnClickActionBlock)(id sender);
+
 @interface MZInsetLabel : UILabel
 
 @property (nonatomic, assign) UIEdgeInsets insets;
@@ -16,10 +18,11 @@
 @property (nonatomic, assign) CGFloat topInsets;
 @property (nonatomic, assign) CGFloat bottomInsets;
 
+//Click the Label callback
+@property (nonatomic, copy) OnClickActionBlock onClickActionBlock;
+
 - (instancetype)initWithFrame:(CGRect)frame insets:(UIEdgeInsets)insets;
 
 - (instancetype)initWithInsets:(UIEdgeInsets)insets;
-
-- (void)setOnClickListener:(id)target selector:(SEL)callback;
 
 @end
