@@ -55,7 +55,7 @@ to update your local repo.
         [self.view addSubview:self.insetLabel];
         
         // Avoid retain-cycle.
-        typeof(&*self) __weak weakSelf = self;
+        __weak __typeof(self)weakSelf = self;
         
         self.insetLabel.clickAction = ^(id sender) {
             MZInsetPage *page = [MZInsetPage new];
