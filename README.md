@@ -27,25 +27,43 @@ to update your local repo.
 
 
 ```
-// usage example
+@interface ViewController ()
+
+@property (nonatomic, strong) MZInsetLabel *insetLabel;
+
+@end
+
+
+@implementation ViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.title = @"MZInsetLabel Usage";
+    
+    // usage example: Avoid the retain cycle.
     {
         CGRect insetFrame = CGRectMake(50, 80, 170, 50);
         UIEdgeInsets insets = UIEdgeInsetsMake(30, 5, 10, 5);
         
-        MZInsetLabel *insetLabel = [[MZInsetLabel alloc] initWithFrame:insetFrame insets:insets];
+        _insetLabel = [[MZInsetLabel alloc] initWithFrame:insetFrame insets:insets];
         
-        insetLabel.backgroundColor = [UIColor lightGrayColor];
-        insetLabel.text = @"www.veryitman.com";
-        insetLabel.textAlignment = NSTextAlignmentCenter;
-        [self.view addSubview:insetLabel];
+        self.insetLabel.backgroundColor = [UIColor lightGrayColor];
+        self.insetLabel.text = @"www.veryitman.com";
+        self.insetLabel.textAlignment = NSTextAlignmentCenter;
+        [self.view addSubview:self.insetLabel];
         
-        // set action
-        insetLabel.clickAction = ^(id sender) {
-            NSLog(@"sender: %@", sender);
+        // Avoid retain-cycle.
+        typeof(&*self) __weak weakSelf = self;
+        
+        self.insetLabel.clickAction = ^(id sender) {
+            MZInsetPage *page = [MZInsetPage new];
+            [weakSelf.navigationController pushViewController:page animated:YES];
         };
     }
     
-    // usage example
+    // usage example: Generals.
     {
         CGRect insetFrame = CGRectMake(50, 200, 170, 50);
         UIEdgeInsets insets = UIEdgeInsetsMake(10, 5, 20, 5);
@@ -60,6 +78,9 @@ to update your local repo.
         insetLabel.textColor = [UIColor whiteColor];
         [self.view addSubview:insetLabel];
     }
+}
+
+@end
 ```
 
 Simple screenshot.
