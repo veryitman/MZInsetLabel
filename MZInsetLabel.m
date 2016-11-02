@@ -7,7 +7,7 @@
 #import "MZInsetLabel.h"
 #import <objc/runtime.h>
 
-static const char *sAssociatedKey;
+static const char *sAssociatedKey = "MZ_InsetLabel_Key";
 
 @interface MZInsetLabel ()
 
@@ -19,6 +19,19 @@ static const char *sAssociatedKey;
 
 @synthesize insets = _insets;
 
+- (instancetype)initWithFrame:(CGRect)frame insets:(UIEdgeInsets)insets action:(OnClickActionBlock)actionBlock
+{
+    if (self = [super initWithFrame:frame]) {
+        _insets = insets;
+        
+        [self configGestureAction];
+        
+        self.clickAction = actionBlock;
+    }
+    
+    return self;
+}
+
 - (instancetype)init
 {
     UIEdgeInsets insets = UIEdgeInsetsZero;
@@ -28,32 +41,26 @@ static const char *sAssociatedKey;
 
 - (instancetype)initWithFrame:(CGRect)frame insets:(UIEdgeInsets)insets
 {
-    if (self = [super initWithFrame:frame]) {
-        self.insets = insets;
-        
-        [self configGestureAction];
-    }
-    
-    return self;
+    return [self initWithFrame:frame insets:insets action:nil];
 }
 
 - (instancetype)initWithInsets:(UIEdgeInsets)insets
 {
-    if (self = [super init]) {
-        self.insets = insets;
-        
-        [self configGestureAction];
-    }
-    
-    return self;
+    return [self initWithFrame:CGRectZero insets:insets action:nil];
 }
 
+/**
+ *  Override drawTextInRect.
+ */
 - (void)drawTextInRect:(CGRect)rect
 {
     CGRect curRect = UIEdgeInsetsInsetRect(rect, self.insets);
     [super drawTextInRect:curRect];
 }
 
+/**
+ *  Add Gesture.
+ */
 - (void)configGestureAction
 {
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doClickInsetLabelAction:)];
@@ -63,17 +70,17 @@ static const char *sAssociatedKey;
 
 - (void)doClickInsetLabelAction:(id)sender
 {
-    self.onClickActionBlock(sender);
+    self.clickAction(sender);
 }
 
 #pragma mark Setter & Getter.
 
-- (void)setOnClickActionBlock:(OnClickActionBlock)onClickActionBlock
+- (void)setClickAction:(OnClickActionBlock)action
 {
-    objc_setAssociatedObject(self, sAssociatedKey, onClickActionBlock, OBJC_ASSOCIATION_COPY);
+    objc_setAssociatedObject(self, sAssociatedKey, action, OBJC_ASSOCIATION_COPY);
 }
 
-- (OnClickActionBlock)onClickActionBlock
+- (OnClickActionBlock)clickAction
 {
     return objc_getAssociatedObject(self, sAssociatedKey);
 }

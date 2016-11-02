@@ -19,7 +19,9 @@ typedef void(^OnClickActionBlock)(id sender);
 @property (nonatomic, assign) CGFloat bottomInsets;
 
 //Click the Label callback
-@property (nonatomic, copy) OnClickActionBlock onClickActionBlock;
+@property (nonatomic, copy) OnClickActionBlock clickAction;
+
+- (instancetype)initWithFrame:(CGRect)frame insets:(UIEdgeInsets)insets action:(OnClickActionBlock)actionBlock;
 
 - (instancetype)initWithFrame:(CGRect)frame insets:(UIEdgeInsets)insets;
 
