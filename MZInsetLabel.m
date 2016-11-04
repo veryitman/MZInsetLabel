@@ -7,7 +7,7 @@
 #import "MZInsetLabel.h"
 #import <objc/runtime.h>
 
-static const char *sAssociatedKey = "MZ_InsetLabel_Key";
+static char sAssociatedKey;;
 
 @interface MZInsetLabel ()
 
@@ -70,19 +70,28 @@ static const char *sAssociatedKey = "MZ_InsetLabel_Key";
 
 - (void)doClickInsetLabelAction:(id)sender
 {
-    self.clickAction(sender);
+    if (self.clickAction) {
+        self.clickAction(sender);
+    }
 }
 
 #pragma mark Setter & Getter.
 
 - (void)setClickAction:(OnClickActionBlock)action
 {
-    objc_setAssociatedObject(self, sAssociatedKey, action, OBJC_ASSOCIATION_COPY);
+    if (self.clickAction) {
+        //objc_removeAssociatedObjects(self);//It remove all
+        
+        // Remove 'action' only
+        objc_setAssociatedObject(self, &sAssociatedKey, nil, OBJC_ASSOCIATION_COPY);
+    }
+    
+    objc_setAssociatedObject(self, &sAssociatedKey, action, OBJC_ASSOCIATION_COPY);
 }
 
 - (OnClickActionBlock)clickAction
 {
-    return objc_getAssociatedObject(self, sAssociatedKey);
+    return objc_getAssociatedObject(self, &sAssociatedKey);
 }
 
 - (UIEdgeInsets)insets
