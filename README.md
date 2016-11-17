@@ -8,7 +8,7 @@ It support ios7/ios7+.
 Add it to your Podfile.
 
 ```
-pod 'MZInsetLabel', '~> 0.3.0'
+pod 'MZInsetLabel', '~> 0.5.0'
 ```
 
 Or
@@ -85,6 +85,6 @@ to update your local repo.
 
 Simple screenshot.
 
-![0](http://odj6mf2ar.bkt.clouddn.com/MZInsetLabelUsage.png?attname=&e=1478059710&token=z2IU-kT8yrG5MTdRPoullKoxwVa7yxArGM91HAGZ:iMWCxXOeVNuDnAZCIRc8ejVTy_Y)
+![0](http://odj6mf2ar.bkt.clouddn.com/MZInsetLabelUsage.png?attname=&e=1479396776&token=z2IU-kT8yrG5MTdRPoullKoxwVa7yxArGM91HAGZ:RY1mdlzJ1c0OycIKA34zkHoaddw)
 
 
